@@ -94,6 +94,7 @@ public class App {
         jda.addEventListener(new WarnCommand(jda));
         jda.addEventListener(new WarnlistCommand(jda));
         jda.addEventListener(new EmbedCommand(jda));
+        jda.addEventListener(new AnkietaCommand(jda));
         new KickCommand(jda);
         new ClearCommand(jda);
         new MuteCommand(jda);
@@ -184,8 +185,12 @@ public class App {
         cmds.add(new CommandData("zalozbiznes", "Załóz swój własny biznes")
                 .addOption(OptionType.STRING, "nazwa", "Nazwa swojego biznesu"));
 
-        System.out.println("[SLASH] dodaj created");
+        System.out.println("[SLASH] zalozbiznes created");
 
+        cmds.add(new CommandData("ankieta", "Stwórz ankiete xD")
+                .addOption(OptionType.STRING, "pytanie", "Pytanie do twojej ankiety"));
+
+        System.out.println("[SLASH] zalozbiznes created");
 
 
 
