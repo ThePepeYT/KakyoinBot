@@ -1,1 +1,1 @@
-worker: java -jar target/FireCodeBot-1.0.0-jar-with-dependencies.jar
+web: java -jar target/KakyoinBot-1.0.0-jar-with-dependencies.jar
