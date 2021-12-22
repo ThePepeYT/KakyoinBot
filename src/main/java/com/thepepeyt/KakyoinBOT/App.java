@@ -39,6 +39,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
+import static spark.Spark.*;
 
 
 public class App {
@@ -66,9 +67,11 @@ public class App {
 
 
 
+
     public static void main(String[] args) throws LoginException, InterruptedException, SQLException, ClassNotFoundException {
 
 
+        get("/", (request, response) -> "Hello World!");
 
 
         final var jda = JDABuilder.createLight(System.getenv("TOKEN"))

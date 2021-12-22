@@ -78,6 +78,12 @@
             <artifactId>databasehelper</artifactId>
             <version>1389939743</version>
         </dependency>
+        <dependency>
+            <groupId>com.sparkjava</groupId>
+            <artifactId>spark-core</artifactId>
+            <version>2.9.2</version>
+        </dependency>
+
     </dependencies>
 
 
