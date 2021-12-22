@@ -77,7 +77,11 @@ public class App {
 
         final var jda = JDABuilder.createLight(System.getenv("TOKEN"))
                 .addEventListeners(new VerifyCreatorListener())
-                .enableIntents(GatewayIntent.GUILD_MESSAGES, GatewayIntent.DIRECT_MESSAGES, GatewayIntent.GUILD_MEMBERS)
+                .enableIntents(
+                        GatewayIntent.GUILD_MESSAGES,
+                        GatewayIntent.DIRECT_MESSAGES,
+                        GatewayIntent.GUILD_MEMBERS,
+                        GatewayIntent.GUILD_EMOJIS)
                 .build();
 
 
