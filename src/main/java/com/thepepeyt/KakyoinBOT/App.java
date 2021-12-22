@@ -70,6 +70,7 @@ public class App {
 
     public static void main(String[] args) throws LoginException, InterruptedException, SQLException, ClassNotFoundException {
 
+        port(Integer.parseInt(System.getenv("PORT")));
 
         get("/", (request, response) -> "Hello World!");
 
