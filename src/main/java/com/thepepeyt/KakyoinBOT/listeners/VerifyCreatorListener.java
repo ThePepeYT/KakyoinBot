@@ -35,7 +35,7 @@ public class VerifyCreatorListener extends ListenerAdapter {
 
 
 
-        e.getJDA().getTextChannelById("923004305307492442").sendMessageEmbeds(embed.build())
+        e.getJDA().getTextChannelById("921884636903256084").sendMessageEmbeds(embed.build())
                 .setActionRow(Button.primary("verify", "Hasło"))
                 .queue();
 
@@ -55,7 +55,7 @@ public class VerifyCreatorListener extends ListenerAdapter {
     @Override
     public void onMessageReceived(@NonNull MessageReceivedEvent e) {
         if(!(e.getChannel() instanceof TextChannel)) return;
-        if(!e.getTextChannel().getId().equals("923004305307492442")) return;
+        if(!e.getTextChannel().getId().equals("921884636903256084")) return;
         e.getMessage().delete().queueAfter(2, TimeUnit.SECONDS);
         if(!e.getMessage().getContentRaw().toLowerCase(Locale.ROOT).equals("speedwagon")) return;
         EmbedBuilder embedBuilder = new EmbedBuilder();
