@@ -3,7 +3,7 @@ package com.thepepeyt.KakyoinBOT;
 
 
 
-import com.thepepeyt.KakyoinBOT.Economy.EconomyEQ;
+import com.thepepeyt.KakyoinBOT.Utils.EconomyEQ;
 import com.thepepeyt.KakyoinBOT.Utils.Warns;
 import com.thepepeyt.KakyoinBOT.commands.*;
 import com.thepepeyt.KakyoinBOT.commands.adm.*;
@@ -17,6 +17,7 @@ import com.thepepeyt.KakyoinBOT.listeners.AntiSendDiscordLinkListener;
 
 import com.thepepeyt.KakyoinBOT.listeners.JoinListener;
 import com.thepepeyt.FastLibJava.FastLibJava;
+import com.thepepeyt.KakyoinBOT.listeners.VerifyCreatorListener;
 import com.thepepeyt.databasehelper.DatabaseHelper;
 import com.thepepeyt.databasehelper.database.type.SQLite3;
 import lombok.Getter;
@@ -25,6 +26,9 @@ import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 import net.dv8tion.jda.api.requests.GatewayIntent;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 import javax.security.auth.login.LoginException;
 import java.awt.Color;
@@ -68,7 +72,8 @@ public class App {
         }
 
         final var jda = JDABuilder.createLight(config.getToken())
-                .enableIntents(GatewayIntent.GUILD_MESSAGES, GatewayIntent.DIRECT_MESSAGES)
+                .addEventListeners(new VerifyCreatorListener())
+                .enableIntents(GatewayIntent.GUILD_MESSAGES, GatewayIntent.DIRECT_MESSAGES, GatewayIntent.GUILD_MEMBERS)
                 .build();
 
 
@@ -111,7 +116,7 @@ public class App {
 
 
         DB.createTable("WARNS",
-                List.of("ID STRING", "AMOUNT INT", "REASONS STRING", "ADMINS STRING", "DATES STRING")
+                List.of("ID STRING", "AMOUNT INT", "JSON STRING")
         );
 
         EconomyEQ EQ = new EconomyEQ("arrow:0,ropa:0,najemnicy:0,companies:0", "brak biznesu", 0,0);
@@ -256,21 +261,26 @@ public class App {
         map.replace(id, EQ);
     }
 
-    public static Warns getWarns(String id) throws SQLException, ExecutionException, InterruptedException {
+    public static Warns getWarns(String id) throws SQLException, ExecutionException, InterruptedException, ParseException {
         if (warns.containsKey(id)) return warns.get(id);
         final Boolean check = DB.ifExists("WARNS", List.of("ID"), List.of(id)).get();
         if (!check) {
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("reasons", new ArrayList<String>());
+            jsonObject.put("admins", new ArrayList<String>());
+            jsonObject.put("dates", new ArrayList<String>());
             DB.CustomSQLVoid(
-                    "INSERT INTO WARNS (ID,AMOUNT,REASONS,ADMINS,DATES) VALUES (?,?,?,?,?)",
-                    List.of(id, 0, "", "", ""));
-            var warn = new Warns(0, "", "", "");
+                    "INSERT INTO WARNS (ID,AMOUNT,JSON) VALUES (?,?,?)",
+                    List.of(id, 0, jsonObject.toJSONString()));
+
+            var warn = new Warns(0, jsonObject);
             warns.put(id, warn);
             return warn;
         }
 
-        var list = App.getDB().getColumns("WARNS", List.of("AMOUNT", "REASONS", "ADMINS", "DATES"), List.of("ID"), List.of(id)).get().get();
+        var list = App.getDB().getColumns("WARNS", List.of("AMOUNT", "JSON"), List.of("ID"), List.of(id)).get().get();
 
-        Warns warn = new Warns((Integer) list.get(0), (String) list.get(1), (String) list.get(2), (String) list.get(3));
+        Warns warn = new Warns((Integer) list.get(0), (JSONObject) new JSONParser().parse((String) list.get(1)));
 
 
         warns.put(id, warn);

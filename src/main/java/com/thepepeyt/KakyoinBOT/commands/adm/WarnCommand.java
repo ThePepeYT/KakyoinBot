@@ -47,17 +47,16 @@ public class WarnCommand extends ListenerAdapter {
                     .queue();
 
             var warns = App.getWarns(user.getId());
-            warns.addAdmins(e.getMember().getNickname());
+            warns.addAdmin(e.getMember().getNickname());
             warns.addReason(reason);
-            warns.addDates(date);
+            warns.addDate(date);
             warns.addAmount();
             App.getWarns().replace(user.getId(), warns);
             App.getDB().updateColumn("WARNS", "AMOUNT", List.of("ID"), List.of(user.getId()), warns.getAmount());
-            App.getDB().updateColumn("WARNS", "REASONS", List.of("ID"), List.of(user.getId()), App.getLib().ArraytoString(warns.getReasons(), ","));
-            App.getDB().updateColumn("WARNS", "ADMINS", List.of("ID"), List.of(user.getId()), App.getLib().ArraytoString(warns.getAdmins(), ","));
-            App.getDB().updateColumn("WARNS", "DATES", List.of("ID"), List.of(user.getId()), App.getLib().ArraytoString(warns.getDates(), ","));
+            App.getDB().updateColumn("WARNS", "JSON", List.of("ID"), List.of(user.getId()), warns.asJson().toJSONString());
 
-            System.out.println(App.getWarns());
+
+            System.out.println(warns.asJson().toJSONString());
 
         }
 

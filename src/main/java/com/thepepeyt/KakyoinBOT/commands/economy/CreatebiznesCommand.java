@@ -1,7 +1,7 @@
 package com.thepepeyt.KakyoinBOT.commands.economy;
 
 import com.thepepeyt.KakyoinBOT.App;
-import com.thepepeyt.KakyoinBOT.Economy.EconomyEQ;
+import com.thepepeyt.KakyoinBOT.Utils.EconomyEQ;
 import lombok.SneakyThrows;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.JDA;

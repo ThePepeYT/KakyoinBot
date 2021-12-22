@@ -1,4 +1,4 @@
-package com.thepepeyt.KakyoinBOT.Economy;
+package com.thepepeyt.KakyoinBOT.Utils;
 
 import com.thepepeyt.KakyoinBOT.App;
 import lombok.Getter;
