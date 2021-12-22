@@ -9,7 +9,6 @@ import com.thepepeyt.KakyoinBOT.commands.*;
 import com.thepepeyt.KakyoinBOT.commands.adm.*;
 import com.thepepeyt.KakyoinBOT.commands.economy.BiznesinfoCommand;
 import com.thepepeyt.KakyoinBOT.commands.economy.CreatebiznesCommand;
-import com.thepepeyt.KakyoinBOT.config.Config;
 
 import com.thepepeyt.KakyoinBOT.listeners.AntiSendDiscordLinkListener;
 
@@ -64,14 +63,10 @@ public class App {
 
     public static void main(String[] args) throws LoginException, InterruptedException, SQLException {
 
-        final Config config = new Config().load();
-        if (config.getToken().equals("token here półmuzgu wgl źle")) {
-            //@TODO logger
-            System.out.println("Zmień token");
-            System.exit(-1);
-        }
 
-        final var jda = JDABuilder.createLight(config.getToken())
+
+
+        final var jda = JDABuilder.createLight(System.getenv("TOKEN"))
                 .addEventListeners(new VerifyCreatorListener())
                 .enableIntents(GatewayIntent.GUILD_MESSAGES, GatewayIntent.DIRECT_MESSAGES, GatewayIntent.GUILD_MEMBERS)
                 .build();
@@ -122,6 +117,7 @@ public class App {
         EconomyEQ EQ = new EconomyEQ("arrow:0,ropa:0,najemnicy:0,companies:0", "brak biznesu", 0,0);
 
         map.put("0", EQ);
+
 
 
 
