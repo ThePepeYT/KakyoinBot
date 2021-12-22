@@ -18,6 +18,7 @@ import com.thepepeyt.KakyoinBOT.listeners.JoinListener;
 import com.thepepeyt.FastLibJava.FastLibJava;
 import com.thepepeyt.KakyoinBOT.listeners.VerifyCreatorListener;
 import com.thepepeyt.databasehelper.DatabaseHelper;
+import com.thepepeyt.databasehelper.database.type.PostgreSQL;
 import com.thepepeyt.databasehelper.database.type.SQLite3;
 import lombok.Getter;
 import net.dv8tion.jda.api.JDA;
@@ -54,14 +55,18 @@ public class App {
 
 
     @Getter
-    private final static SQLite3 DB = DatabaseHelper.sqLite3Builder()
-            .file(new File("database.db"))
+    private final static PostgreSQL DB = (PostgreSQL) DatabaseHelper.postgreSQLBuilder()
+            .host("ec2-54-78-211-131.eu-west-1.compute.amazonaws.com")
+            .database("d2c6hvovj3hvbr")
+            .user("rgaulelvlixiys")
+            .port(5432)
+            .password("e1348f2fcd79a1e60cd57f14cdf8f2b69910e3d93fa4cadaf7bf5c21dd50fb79")
             .build();
 
 
 
 
-    public static void main(String[] args) throws LoginException, InterruptedException, SQLException {
+    public static void main(String[] args) throws LoginException, InterruptedException, SQLException, ClassNotFoundException {
 
 
 
@@ -102,16 +107,16 @@ public class App {
 
         DB.createTable(
                 "level",
-                List.of("ID STRING","REQ INT", "LEVEL INT", "EXP INT"));
+                List.of("ID TEXT","REQ INT", "LEVEL INT", "EXP INT"));
 
 
         DB.createTable("byznes",
-                List.of("ID STRING", "MONEY INT", "SEJF INT", "NAZWA STRING", "ITEMY STRING")
+                List.of("ID TEXT", "MONEY INT", "SEJF INT", "NAZWA TEXT", "ITEMY TEXT")
         );
 
 
         DB.createTable("WARNS",
-                List.of("ID STRING", "AMOUNT INT", "JSON STRING")
+                List.of("ID TEXT", "AMOUNT INT", "JSON TEXT")
         );
 
         EconomyEQ EQ = new EconomyEQ("arrow:0,ropa:0,najemnicy:0,companies:0", "brak biznesu", 0,0);
