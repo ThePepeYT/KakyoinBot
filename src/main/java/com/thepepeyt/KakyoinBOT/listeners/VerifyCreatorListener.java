@@ -67,7 +67,7 @@ public class VerifyCreatorListener extends ListenerAdapter {
                 .flatMap(channel -> channel.sendMessageEmbeds(embedBuilder.build()))
                 .queue();
 
-        e.getGuild().addRoleToMember(e.getMember().getId(), e.getJDA().getRoleById("918991212243984404")).queue();
+        e.getGuild().addRoleToMember(e.getMember().getId(), e.getJDA().getRoleById("923707098288775189")).queue();
 
     }
 
