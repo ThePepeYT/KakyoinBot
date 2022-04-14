@@ -12,7 +12,9 @@
     <properties>
         <maven.compiler.target>17</maven.compiler.target>
         <maven.compiler.source>17</maven.compiler.source>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+
 
 
     <build>
@@ -24,7 +26,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>com.thepepeyt.KakyoinBOT.App</mainClass>
+                            <mainClass>com.thepepeyt.harcerzlink.App</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>
@@ -41,6 +43,7 @@
                     </execution>
                 </executions>
             </plugin>
+
         </plugins>
     </build>
 
